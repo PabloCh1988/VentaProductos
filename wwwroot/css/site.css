@@ -5,3 +5,8 @@
 .container{
     height: 100%;
 }
+
+#error,
+#errorEditar {
+    color: red;
+}

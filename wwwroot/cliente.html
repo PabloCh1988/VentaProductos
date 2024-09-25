@@ -78,7 +78,8 @@
               <input type="number" id="Dni" placeholder="Dni del Cliente" class="form-control">
 
               <label for="Saldo" class="form-label">Saldo</label>
-              <input type="number" id="Saldo" placeholder="Nombre del Cliente" class="form-control">
+              <input type="number" id="Saldo" placeholder="Saldo del Cliente" class="form-control">
+              <p id="error" hidden></p>
             </div>
           </div>
           <div class="modal-footer">
@@ -105,18 +106,19 @@
               <input type="text" id="NombreEditar" placeholder="Nombre del Cliente" class="form-control">
 
               <label for="ApellidoEditar" class="form-label">Apellido</label>
-              <input type="number" id="ApellidoEditar" placeholder="Apellido del Cliente" class="form-control">
+              <input type="text" id="ApellidoEditar" placeholder="Apellido del Cliente" class="form-control">
 
               <label for="DniEditar" class="form-label">Dni</label>
-              <input type="number" id="PrecioVentaEditar" placeholder="Dni del Cliente" class="form-control">
+              <input type="number" id="DniEditar" placeholder="Dni del Cliente" class="form-control">
 
-              <label for="PrecioCompraEditar" class="form-label">Saldo</label>
-              <input type="number" id="PrecioCompraEditar" placeholder="Nombre del Alumno" class="form-control">
+              <label for="SaldoEditar" class="form-label">Saldo</label>
+              <input type="number" id="SaldoEditar" placeholder="Saldo del Cliente" class="form-control">
+              <p id="errorEditar" hidden></p>
             </div>
           </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-              <button type="button" class="btn btn-primary" onclick="EditarProducto();">Guardar</button>
+              <button type="button" class="btn btn-primary" onclick="EditarCliente();">Guardar</button>
             </div>
           </div>
         </div>
@@ -126,13 +128,13 @@
 
 
 
-    <script src="./js/productos.js"></script>
+    <script src="js/clientes.js"></script>
     <script src="./lib/bootstrap/js/bootstrap.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"
       integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 
     <script type="text/javascript">
-      window.onload = ObtenerProductos();
+      window.onload = ObtenerClientes();
     </script>
 </body>
 
