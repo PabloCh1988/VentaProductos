@@ -11,7 +11,7 @@ public class Cliente
 
     public string? NombreCliente { get; set; }
 
-    [StringLength(100, ErrorMessage = "El Nombre debe contener entre {2} y {1} caracteres.", MinimumLength = 3)]
+    [StringLength(100, ErrorMessage = "El Apellido debe contener entre {2} y {1} caracteres.", MinimumLength = 3)]
 
     public string? ApellidoCliente { get; set; }
     public int Dni { get; set; }
