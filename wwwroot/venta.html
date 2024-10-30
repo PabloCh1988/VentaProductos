@@ -78,7 +78,7 @@
               <input type="checkbox" id="Finalizada" class="form-control">
 
               <label for="Cliente" class="form-label">Cliente</label>
-              <input type="text" id="Cliente" class="form-control">
+              <select id="Cliente" class="form-control"></select>
 
               <p id="error" hidden></p>
             </div>
@@ -110,7 +110,7 @@
               <input type="number" id="FinalizadaEditar"placeholder="" class="form-control">
 
               <label for="ClienteEditar" class="form-label">Cliente</label>
-              <input type="text" id="ClienteEditar" placeholder="" class="form-control">
+              <select id="ClienteEditar" class="form-control"></select>
 
               <p id="errorEditar" hidden></p>
             </div>
@@ -124,6 +124,53 @@
       </div>
     </div>
 
+    <div id="modalVentaDetalle" class="modal fade" tabindex="-1" data-bs-backdrop="static" aria-hidden="true">
+      <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Detalles de una Venta</h5>
+          </div>
+          <div class="modal-body">
+            <div class="row">
+              <div class="col-lg-5">
+                <input type="number" id="IdVentaDetalle" class="form-control" readonly>
+                
+                <label for="ProductoId" class="form-label">Producto</label>
+                <select id="ProductoId" class="form-control form-select"></select>
+
+                <label for="VentaId" class="form-label">Venta</label>
+                <input type="number" id="VentaId" class="form-control">
+
+                <button type="button" class="btn btn-primary mt-3 d-flex mx-auto" onclick="GuardarDetalle();">Guardar</button>
+
+                <p id="errorDetalle" class="text-danger" hidden></p>
+              </div>
+
+              <div class="col-lg-7">
+                <table class="table table-dark table-striped">
+                  <thead>
+                    <tr>
+                      <th>Producto</th>
+                      <th>Venta</th>
+                      <th></th>
+                      <th></th>
+                    </tr>
+                  </thead>
+                  <tbody id="todosLosDetalles"></tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Salir</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
 
 
 
@@ -131,9 +178,11 @@
     <script src="./lib/bootstrap/js/bootstrap.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"
       integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+      <script src="js/common/ObtenerClientesDropdown.js"></script>
 
     <script type="text/javascript">
       window.onload = ObtenerVentas();
+      window.onload = ObtenerClientesDropdown();
     </script>
 </body>
 

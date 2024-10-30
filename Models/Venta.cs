@@ -1,8 +1,5 @@
-using System.ComponentModel.DataAnnotations;
-
 
 namespace VentaProductos.Models;
-
 public class Venta
 {
     public int Id { get; set; }
@@ -12,6 +9,7 @@ public class Venta
     public bool? Finalizada { get; set; }
 
     public int IdCliente { get; set; }
+    public virtual Cliente? Cliente { get; set; }
 
-    public virtual ICollection<DetalleVenta> DetalleVenta { get; set;}
+    public virtual ICollection<DetalleVenta>? DetalleVenta { get; set;}
 }
