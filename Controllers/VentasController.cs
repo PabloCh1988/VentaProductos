@@ -24,7 +24,8 @@ namespace VentaProductos.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Venta>>> GetVentas()
         {
-            return await _context.Ventas.ToListAsync();
+            var ventas = await _context.Ventas.Include(x => x.Cliente).ToListAsync();
+            return ventas;
         }
 
         // GET: api/Ventas/5
@@ -38,7 +39,7 @@ namespace VentaProductos.Controllers
                 return NotFound();
             }
 
-            return venta;
+            return Ok(venta);
         }
 
         // PUT: api/Ventas/5
@@ -75,8 +76,17 @@ namespace VentaProductos.Controllers
         // POST: api/Ventas
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Venta>> PostVenta(Venta venta)
+        public async Task<ActionResult> PostVenta(Venta venta)
         {
+            var cliente = await _context.Clientes.Include(c => c.Ventas)
+                .FirstOrDefaultAsync(c => c.Id == venta.ClienteId);
+
+            if (cliente != null && cliente.Ventas != null && cliente.Ventas.Any(v => v.Finalizada != true))
+            {
+                // Retornar mensaje de error en el cuerpo de la respuesta
+                return BadRequest(new { message = "El cliente tiene una venta pendiente." });
+            }
+
             _context.Ventas.Add(venta);
             await _context.SaveChangesAsync();
 

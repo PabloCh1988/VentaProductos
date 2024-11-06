@@ -8,7 +8,7 @@ public class Venta
 
     public bool? Finalizada { get; set; }
 
-    public int IdCliente { get; set; }
+    public int ClienteId { get; set; }
     public virtual Cliente? Cliente { get; set; }
 
     public virtual ICollection<DetalleVenta>? DetalleVenta { get; set;}

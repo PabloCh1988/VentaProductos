@@ -57,16 +57,10 @@ namespace VentaProductos.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("IdProducto")
+                    b.Property<int>("ProductoId")
                         .HasColumnType("int");
 
-                    b.Property<int>("IdVenta")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("ProductoId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("VentaId")
+                    b.Property<int>("VentaId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -112,7 +106,7 @@ namespace VentaProductos.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int?>("ClienteId")
+                    b.Property<int>("ClienteId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("FechaVenta")
@@ -120,9 +114,6 @@ namespace VentaProductos.Migrations
 
                     b.Property<bool?>("Finalizada")
                         .HasColumnType("bit");
-
-                    b.Property<int>("IdCliente")
-                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -134,12 +125,16 @@ namespace VentaProductos.Migrations
             modelBuilder.Entity("VentaProductos.Models.DetalleVenta", b =>
                 {
                     b.HasOne("VentaProductos.Models.Producto", "Producto")
-                        .WithMany()
-                        .HasForeignKey("ProductoId");
+                        .WithMany("DetalleVenta")
+                        .HasForeignKey("ProductoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("VentaProductos.Models.Venta", "Venta")
                         .WithMany("DetalleVenta")
-                        .HasForeignKey("VentaId");
+                        .HasForeignKey("VentaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Producto");
 
@@ -149,10 +144,22 @@ namespace VentaProductos.Migrations
             modelBuilder.Entity("VentaProductos.Models.Venta", b =>
                 {
                     b.HasOne("VentaProductos.Models.Cliente", "Cliente")
-                        .WithMany()
-                        .HasForeignKey("ClienteId");
+                        .WithMany("Ventas")
+                        .HasForeignKey("ClienteId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Cliente");
+                });
+
+            modelBuilder.Entity("VentaProductos.Models.Cliente", b =>
+                {
+                    b.Navigation("Ventas");
+                });
+
+            modelBuilder.Entity("VentaProductos.Models.Producto", b =>
+                {
+                    b.Navigation("DetalleVenta");
                 });
 
             modelBuilder.Entity("VentaProductos.Models.Venta", b =>

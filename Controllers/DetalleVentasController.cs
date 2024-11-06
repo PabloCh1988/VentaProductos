@@ -20,26 +20,19 @@ namespace VentaProductos.Controllers
             _context = context;
         }
 
-        // GET: api/DetalleVentas
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<DetalleVenta>>> GetDetalleVenta()
+                // GET: api/DetalleVentas
+         [HttpGet("{id}")]
+        public async Task<ActionResult<List<DetalleVenta>>> GetDetalleVenta(int id)
         {
-            return await _context.DetalleVenta.ToListAsync();
-        }
-
-        // GET: api/DetalleVentas/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<DetalleVenta>> GetDetalleVenta(int id)
-        {
-            var detalleVenta = await _context.DetalleVenta.FindAsync(id);
-
+            var detalleVenta = await _context.DetalleVenta.Include(x => x.Producto).Where(x => x.VentaId == id).ToListAsync();
             if (detalleVenta == null)
             {
                 return NotFound();
             }
-
-            return detalleVenta;
+            
+            return Ok(detalleVenta);
         }
+
 
         // PUT: api/DetalleVentas/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
@@ -71,6 +64,10 @@ namespace VentaProductos.Controllers
 
             return NoContent();
         }
+                private bool DetalleVentaExists(int id)
+        {
+            return _context.DetalleVenta.Any(e => e.Id == id);
+        }
 
         // POST: api/DetalleVentas
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
@@ -99,9 +96,6 @@ namespace VentaProductos.Controllers
             return NoContent();
         }
 
-        private bool DetalleVentaExists(int id)
-        {
-            return _context.DetalleVenta.Any(e => e.Id == id);
-        }
+
     }
 }
